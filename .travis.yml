@@ -16,7 +16,7 @@ install:
   - sudo easy_install "pyramid==1.4.5" 
   - sudo easy_install "pyramid-persona==1.5"
   - pip install codecov
-  - pip install selenium=2.53.2
+  - pip install "selenium==2.53.2"
 
   - cd
   - svn checkout svn://r-forge.r-project.org/svnroot/segannot/python segannot
