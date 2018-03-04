@@ -33,5 +33,5 @@ install:
 script:
   - coverage run tests/tests.py
 
-after_success:
+
 - codecov
