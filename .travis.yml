@@ -32,5 +32,4 @@ install:
 
 script:
   - coverage run tests/tests.py
-
 - codecov
