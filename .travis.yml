@@ -30,8 +30,7 @@ install:
   - sed -i 's#^FILE_PREFIX.*$#FILE_PREFIX = "/var/www"#' plotter/db.py
   - sudo python setup.py install
 
-script:
-  - coverage run tests/tests.py
-  - codecov
+after_success:
+  - codecov --token=d6ec2f4a-49fa-41e1-9dd0-c4492d408f1a
 
 
