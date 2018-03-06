@@ -29,7 +29,22 @@ install:
   - cd SegAnnDB
   - sed -i 's#^FILE_PREFIX.*$#FILE_PREFIX = "/var/www"#' plotter/db.py
   - sudo python setup.py install
-
+  - sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+  - tar xvzf geckodriver-v0.19.1-linux64.tar.gz
+  - sudo mv geckodriver /usr/local/bin
+  - sudo apt-get install apache2 libapache2-mod-wsgi
+  - cd /var/www
+  - sudo chown www-data .
+  - sudo -u www-data mkdir db secret chromlength
+  - sudo cp ~/SegAnnDB/apache.config /etc/apache2/sites-available/pyramid.conf
+  - sudo a2enmod wsgi
+  - sudo a2dissite 000-default
+  - sudo a2ensite pyramid
+  - cd ~/SegAnnDB
+  - bash server-recover-restart.sh
+  - sudo wget -O /var/www/chromlength/hg19.txt.gz http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/chromInfo.txt.gz
+  - mkdir db secret chromlength
+  - bash recover-restart.sh
 script:
   - coverage run tests.py
 
