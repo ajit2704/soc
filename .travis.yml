@@ -47,8 +47,4 @@ install:
   - bash recover-restart.sh
 script:
   - coverage run tests/tests.py
-
-after_success:
-  - codecov --token=d6ec2f4a-49fa-41e1-9dd0-c4492d408f1a
-
-
+  - bash <(curl -s https://codecov.io/bash) -cF python
