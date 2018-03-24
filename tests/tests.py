@@ -1,3 +1,7 @@
+
+
+# NOTE: PLEASE PUT YOUR CREDENTIALS IN "login" FUNCTION
+
 import unittest
 import time
 import urllib
@@ -176,7 +180,7 @@ class SegAnnTest(unittest.TestCase):
         """
        	driver.find_element_by_id('signin').click()
         wait = WebDriverWait(driver, 20)
-        email_field = wait.until(EC.presence_of_element_located((By.ID, "identifierId"))).send_keys('kaleajit27@gmail.com')
+        email_field = wait.until(EC.presence_of_element_located((By.ID, "identifierId"))).send_keys('<your_email_id>')
 
         # enter the email of test user
         # click next
@@ -184,7 +188,7 @@ class SegAnnTest(unittest.TestCase):
 
 	time.sleep(1)
 	passwordElem = driver.find_element_by_xpath('//*[@id="password"]/div[1]/div/div[1]/input')
-	passwordElem.send_keys('Ajit@1997')
+	passwordElem.send_keys('<your pass>')
 	time.sleep(1)
 	Sign_in =  driver.find_element_by_xpath('//*[@id="passwordNext"]/content/span')
         Sign_in.click()
