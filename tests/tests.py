@@ -18,7 +18,7 @@ class SegAnnTest(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         # enter the test_profile_path here
-        self.test_profile_path = "./test_profile.bedGraph.gz"
+        self.test_profile_path = "/home/ajit/SegAnnDB/test_profile.bedGraph.gz"
 
     def test010_isSegAnnUp(self):
         """
@@ -39,11 +39,28 @@ class SegAnnTest(unittest.TestCase):
 
         driver = self.driver
         driver.get("http://localhost:8080")
+	self.login(driver)	
+	"""driver.find_element_by_id('signin').click()
+        wait = WebDriverWait(driver, 20)
+        email_field = wait.until(EC.presence_of_element_located((By.ID, "identifierId"))).send_keys('kaleajit27@gmail.com')
+
+        # enter the email of test user
+        # click next
+        driver.find_element_by_id('identifierNext').click()
+
+	time.sleep(1)
+	passwordElem = driver.find_element_by_xpath('//*[@id="password"]/div[1]/div/div[1]/input')
+	passwordElem.send_keys('Ajit@1997')
+	time.sleep(1)
+	Sign_in =  driver.find_element_by_xpath('//*[@id="passwordNext"]/content/span')
+        Sign_in.click()"""
+
+
 
         # Call the login method to login the user
-        self.login(driver)
 
-        wait = WebDriverWait(driver, 60)
+
+        wait = WebDriverWait(driver, 10)
         assert wait.until(
             EC.element_to_be_clickable((By.ID, "signout"))).is_displayed()
 
@@ -148,7 +165,7 @@ class SegAnnTest(unittest.TestCase):
         else:
             assert False
 
-    def login(self, driver):
+    def login(self,driver):
         """
         This method is internal to testing framework
         It is used to login the user.
@@ -157,52 +174,34 @@ class SegAnnTest(unittest.TestCase):
         Parameters:
             driver - reference to driver being used
         """
-        # this is the tricky part
-        # We have to get the right handle for the correct popup login window
-        main_window_handle = driver.current_window_handle
-
-        driver.find_element_by_id('signin').click()
-
-        wait = WebDriverWait(driver, 60)
-
-        ### The Commented code was used to test for persona based login system
-        ### It is no longer in use. Can be safely removed
-        # signin_window_handle = None
-
-        # iterating through all the handles to get the popup, since we only hve
-        # one popup, making use of that
-        # while not signin_window_handle:
-            # for handle in driver.window_handles:
-                # if handle != main_window_handle:
-                    # signin_window_handle = handle
-                    # break
-
-        # switch to the signin popup
-        # driver.switch_to.window(signin_window_handle)
-
-        # xpath id obtained using firebug for the next button on persona dialog
-        # (driver.find_element_by_xpath(
-            # "/html/body/div/section[1]/form/div[2]/div[1]/div/div[2]/p[4]/button[1]")
-            # .click())
-
-        # switch to the main window
-        # driver.switch_to.window(main_window_handle)
-
-        # get the email field
-        email_field = wait.until(
-            EC.element_to_be_clickable((By.ID, "Email")))
+       	driver.find_element_by_id('signin').click()
+        wait = WebDriverWait(driver, 20)
+        email_field = wait.until(EC.presence_of_element_located((By.ID, "identifierId"))).send_keys('kaleajit27@gmail.com')
 
         # enter the email of test user
-        email_field.send_keys("seganntest@gmail.com")
-
         # click next
-        driver.find_element_by_id('next').click()
+        driver.find_element_by_id('identifierNext').click()
 
-        # enter password
-        wait.until(EC.presence_of_element_located((By.ID, "Passwd"))).send_keys('segann@test')
+	time.sleep(1)
+	passwordElem = driver.find_element_by_xpath('//*[@id="password"]/div[1]/div/div[1]/input')
+	passwordElem.send_keys('Ajit@1997')
+	time.sleep(1)
+	Sign_in =  driver.find_element_by_xpath('//*[@id="passwordNext"]/content/span')
+        Sign_in.click()
 
-        # click next and wait for redirect
-        wait.until(EC.presence_of_element_located((By.ID, "signIn"))).click()
+	"""driver.find_element_by_id('signin').click()
+        wait = WebDriverWait(driver, 60)
+	email_field = wait.until(EC.element_to_be_clickable((By.ID, "Email")))
+
+	emailElem = driver.find_element_by_id('Email')
+	emailElem.send_keys('seganntest@gmail.com')
+	nextButton = driver.find_element_by_id('next')
+	nextButton.click()
+	time.sleep(1)
+	passwordElem = driver.find_element_by_id('Passwd')
+	passwordElem.send_keys('segann@test')
+	signinButton = driver.find_element_by_id('signIn')
+	signinButton.click()"""
 
     def tearDown(self):
         self.driver.close()
